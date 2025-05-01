@@ -1,5 +1,7 @@
 #include "TimerManager.hpp"
 
+ControllerTask controllerTasks;
+
 void TimerManager::getTimerStudy() {
 	std::string getMinutes;
 	std::string getMinutesRest;
@@ -22,7 +24,7 @@ void TimerManager::getTimerStudy() {
 	{
 		std::cout << "Please enter an integer value." << std::endl;
 	}
-	ControllerTask::selectTask;
+	controllerTasks.completeTask();
 }
 
 void TimerManager::managerTimer(int timeStudy, int timeRest) {

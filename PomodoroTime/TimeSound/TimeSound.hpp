@@ -8,9 +8,20 @@
 #include <alc.h>
 
 class TimeSound {
-public:
-	void Initialization();
-};
+private:
+    ALCdevice* device;
+    ALCcontext* context;
+    ALuint source;
+    ALuint buffer;
 
+public:
+    TimeSound();
+    ~TimeSound();
+
+    void Initialization();
+    void loadSound();
+    void playSound();
+    void stopSound();
+};
 
 #endif // !TimeSound_HPP

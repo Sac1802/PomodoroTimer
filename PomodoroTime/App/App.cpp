@@ -1,11 +1,14 @@
 #include "App.hpp"
 #include "../Menu/Menu.hpp"
-#include "../ClearTerminal/ClearTermnal.hpp"
-#include "../Controller/ControllerTask.hpp"
 
-ClearTerminal clearT;
+
+extern ClearTerminal clearT;
 ControllerTask controllerTask;
+TimeSound timeSound;
 Menu menu;
+App::App() {
+	
+}
 
 void App::run() const {
 	int option;
@@ -30,6 +33,12 @@ void App::election(int option) const {
 		std::cout << "Task added successfully!" << std::endl;
 		break;
 	case 3:
+		timeSound.Initialization();
+		timeSound.loadSound();
+		timeSound.playSound();
+		std::cout << "Playing sound..." << std::endl;
+		timeSound.stopSound();
+		break;
 	default:
 		break;
 	}

@@ -1,6 +1,6 @@
 #include "ControllerTask.hpp"
 
-ClearTerminal clearT;
+ClearTerminal clearTer;
 
 void ControllerTask::addTask() {
 	Task task;
@@ -53,7 +53,7 @@ void ControllerTask::selectTask() {
 	std::cin >> idSerch;
 	for (auto tasks : listTask) {
 		if (tasks.getIdTask() == idSerch) {
-			clearT.clear();
+			clearTer.clear();
 			std::cout << "Id: " << tasks.getIdTask() << std::endl;
 			std::cout << "You have selected the task: " << tasks.getName() << std::endl;
 			std::cout << "Description: " << tasks.getDescription() << std::endl;

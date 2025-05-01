@@ -11,3 +11,10 @@ void Menu::ShowMenu() {
 	std::cout << " 5.Exit" << std::endl;
 	std::cout << "|------------------------------|" << std::endl;
 }
+
+Menu::Menu() {
+
+}
+
+void Menu::enterTimer() {
+}
