@@ -7,6 +7,8 @@
 #include <thread>
 #include <chrono>
 #include "../Controller/ControllerTask.hpp"
+#include "../TimeSound/TimeSound.hpp"
+#include <iomanip>
 
 class TimerManager {
 public: 

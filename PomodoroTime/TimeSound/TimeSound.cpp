@@ -2,11 +2,6 @@
 #define DR_WAV_IMPLEMENTATION
 #include <dr_wav.h>
 
-ALCdevice* device = nullptr;
-ALCcontext* context = nullptr;
-ALuint source;
-ALuint buffer;
-
 TimeSound::TimeSound() : device(nullptr), context(nullptr), source(0), buffer(0) {}
 
 TimeSound::~TimeSound() {
@@ -15,14 +10,14 @@ TimeSound::~TimeSound() {
 
 
 void TimeSound::Initialization() {
-	TimeSound::device = alcOpenDevice(NULL);
+	device = alcOpenDevice(NULL);
 	ALenum error = alGetError();
 	if (!device) {
 		std::cerr << "Failed to open audio device." << std::endl;
 		std::cerr << "OpenAL Error: " << alGetString(error) << std::endl;
 		return;
 	}
-	TimeSound::context = alcCreateContext(device, NULL);
+	context = alcCreateContext(device, NULL);
 	if (!context) {
 		std::cerr << "Filed to create audio context." << std::endl;
 		std::cerr << "OpenAL Error: " << alGetString(error) << std::endl;
@@ -41,7 +36,7 @@ void TimeSound::loadSound() {
         return;
     }
 
-    // Cargar archivo WAV con dr_wav
+    // Load file WAV with dr_wav
     unsigned int channels;
     unsigned int sampleRate;
     drwav_uint64 totalPCMFrameCount;
@@ -55,7 +50,7 @@ void TimeSound::loadSound() {
     );
 
     if (pSampleData == NULL) {
-        std::cerr << "Error cargando el archivo WAV." << std::endl;
+        std::cerr << "Error file load WAV." << std::endl;
         return;
     }
 
@@ -65,7 +60,7 @@ void TimeSound::loadSound() {
     else if (channels == 2)
         format = AL_FORMAT_STEREO16;
     else {
-        std::cerr << "Formato de canal no soportado: " << channels << std::endl;
+        std::cerr << "Channel format not supported: " << channels << std::endl;
         drwav_free(pSampleData, NULL);
         return;
     }
@@ -110,6 +105,12 @@ void TimeSound::stopSound() {
 	alDeleteBuffers(1, &buffer);
 	alDeleteSources(1, &source);
 	alcMakeContextCurrent(NULL);
-	alcDestroyContext(context);
-	//alcCloseDevice(device);
+    if (context) { 
+        alcDestroyContext(context);
+		context = nullptr;
+    }
+    if (device) { 
+        alcCloseDevice(device);
+		device = nullptr;
+    }
 }

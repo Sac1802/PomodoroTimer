@@ -7,6 +7,7 @@
 #include "../ClearTerminal/ClearTermnal.hpp"
 #include "../Controller/ControllerTask.hpp"
 #include "../TimeSound/TimeSound.hpp"
+#include "../TimeManagment/TimerManager.hpp"
 
 class App {
 public:
