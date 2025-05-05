@@ -1,14 +1,39 @@
+/*****************************************************************//**
+ * \file   TimeSound.cpp
+ * \brief  Implementation of TimeSound class methods for OpenAL-based sound handling.
+ * 
+ * Manages initialization, loading, playback, and stopping of audio using OpenAL.
+ * Uses the `dr_wav` library to read `.wav` files and handle sound buffers efficiently.
+ *
+ * \author Acost
+ * \date   May 2025
+ *********************************************************************/
 #include "TimeSound.hpp"
 #define DR_WAV_IMPLEMENTATION
 #include <dr_wav.h>
 
+ /**
+  * @brief Default constructor.
+  *
+  * Initializes the TimeSound instance with null pointers and default values.
+  */
 TimeSound::TimeSound() : device(nullptr), context(nullptr), source(0), buffer(0) {}
 
+/**
+ * @brief Destructor.
+ *
+ * Cleans up OpenAL resources, ensuring proper memory management.
+ */
 TimeSound::~TimeSound() {
 	stopSound();
 }
 
-
+/**
+ * @brief Initializes OpenAL for audio playback.
+ *
+ * Opens the audio device, creates the OpenAL context, and sets the current context.
+ * Displays an error message if initialization fails.
+ */
 void TimeSound::Initialization() {
 	device = alcOpenDevice(NULL);
 	ALenum error = alGetError();
@@ -28,7 +53,12 @@ void TimeSound::Initialization() {
 	alcMakeContextCurrent(context);
 }
 
-
+/**
+ * @brief Loads a `.wav` file into an OpenAL buffer.
+ *
+ * Uses `dr_wav` to read an audio file, determines the format, and stores the data in OpenAL.
+ * Displays error messages for unsupported formats or failed file reads.
+ */
 void TimeSound::loadSound() {
     alGenBuffers(1, &buffer);
     if (alGetError() != AL_NO_ERROR) {
@@ -81,6 +111,12 @@ void TimeSound::loadSound() {
     playSound();
 }
 
+/**
+ * @brief Plays the loaded sound.
+ *
+ * Sets volume, disables looping, and starts playback using OpenAL.
+ * Continuously checks if the sound is playing and handles errors appropriately.
+ */
 void TimeSound::playSound() {
 	alSourcef(source, AL_GAIN, 1.0f); //Set Volumen
 	alSourcei(source, AL_LOOPING, AL_FALSE);// Loop the sound FALSE
@@ -96,6 +132,12 @@ void TimeSound::playSound() {
 	} while (state == AL_PLAYING);
 }
 
+/**
+ * @brief Stops sound playback and releases OpenAL resources.
+ *
+ * Ensures OpenAL cleanup, deletes buffers and sources, and closes the device.
+ * Properly resets the OpenAL context.
+ */
 void TimeSound::stopSound() {
 	ALint state;
 	alGetSourcei(source, AL_SOURCE_STATE, &state);

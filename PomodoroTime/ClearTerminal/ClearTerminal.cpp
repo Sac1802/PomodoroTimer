@@ -1,4 +1,20 @@
+/*****************************************************************//**
+ * \file   ClearTerminal.cpp
+ * \brief  Implementation of ClearTerminal class functions.
+ * 
+ * This file provides the functionality to clear the terminal screen
+ * depending on the operating system.
+ * 
+ * \author Acost
+ * \date   May 2025
+ *********************************************************************/
 #include "ClearTermnal.hpp"
+
+ /**
+  * @brief Clears the terminal screen.
+  *
+  * Uses system-specific commands to refresh the console.
+  */
 
 void ClearTerminal::clear() {
 #ifdef _WIN32

@@ -1,16 +1,35 @@
+﻿/*****************************************************************//**
+ * \file   TimeManager.cpp
+ * \brief  Implementation of TimerManager class methods.
+ * 
+ * Controls the Pomodoro timer for study sessions and manages rest periods.
+ * Uses time-based functions and sound notifications to enhance productivity.
+ * 
+ * \author Acost
+ * \date   May 2025
+ *********************************************************************/
 #include "TimerManager.hpp"
 
+ /// Controller instance for managing tasks.
 ControllerTask controllerTasks;
+/// Instance for handling timer sounds.
 TimeSound timeSound;
+/// Browser instance for opening study-related URLs.
+OpenBrowser openBrowser;
 
+/**
+ * @brief Initializes a study session using the Pomodoro technique.
+ *
+ * Prompts the user for study and rest durations, validates input,
+ * and initiates a task selection before starting the timer.
+ */
 void TimerManager::getTimerStudy() {
 	std::string getMinutes;
 	std::string getMinutesRest;
 	int minutes;
 	int minutesRest;
-
+	std::cout << "[                        *PomodoroTimer*                          ]" << std::endl;
 	std::cout << "Enter how long you want to study (enter in minutes please): ";
-	std::cin.ignore();
 	std::getline(std::cin, getMinutes);
 
 	std::cout << "Enter the rest time in minutes: ";
@@ -25,10 +44,20 @@ void TimerManager::getTimerStudy() {
 		std::cout << "Please enter an integer value." << std::endl;
 		return;
 	}
+	openBrowser.selectUrl();
 	controllerTasks.selectTask();
 	managerTimer(minutes, minutesRest);
 }
 
+/**
+ * @brief Runs the Pomodoro timer, switching between study and rest phases.
+ *
+ * Tracks time using multithreading and plays sound notifications
+ * to indicate transitions between study and rest periods.
+ *
+ * @param timeStudy Duration of the study session (in minutes).
+ * @param timeRest Duration of the rest session (in minutes).
+ */
 void TimerManager::managerTimer(int timeStudy, int timeRest) {
 
 	int secondsStudy = timeStudy * 60;
@@ -62,6 +91,6 @@ void TimerManager::managerTimer(int timeStudy, int timeRest) {
 		secondsTotal--;
 	}
 
-	std::cout << "\n� Study and rest complete!" << std::endl;
+	std::cout << "\n¡ Study and rest complete!" << std::endl;
 	timeSound.stopSound();
 }

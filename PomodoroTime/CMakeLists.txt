@@ -5,8 +5,8 @@
 # Agregue un origen al ejecutable de este proyecto.
 add_executable (PomodoroTime "PomodoroTime.cpp" "PomodoroTime.h" 
 "App/App.cpp" "TimeManagment/TimeManager.cpp" "Menu/Menu.cpp" 
-"ListMusicForSpeck/Music.cpp" "OpenBrowser/Open.cpp" 
-"TimeSound/TimeSound.cpp" "Filter/FilterErrors.cpp" "Models/Task.cpp" "ClearTerminal/ClearTerminal.cpp" "Controller/ControllerTask.cpp")
+ "OpenBrowser/Open.cpp" 
+"TimeSound/TimeSound.cpp" "Models/Task.cpp" "ClearTerminal/ClearTerminal.cpp" "Controller/ControllerTask.cpp")
 
 target_include_directories(PomodoroTime PRIVATE 
 "C:/Program Files (x86)/OpenAL 1.1 SDK/include"
